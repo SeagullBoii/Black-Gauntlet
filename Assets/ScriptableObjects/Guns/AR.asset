@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937e8e4692110cf45994a43a205731d5, type: 3}
+  m_Name: AR
+  m_EditorClassIdentifier: 
+  name: Assault Rifle
+  damage: 2.5
+  criticalMultiplier: 2
+  fireRate: 0.15
+  bloom: 20
+  weaponModCooldown: 5
+  knockbackForce: 0.25
+  firingState: 2
+  recoilX: -5
+  recoilY: 2.5
+  recoilZ: 0.35
+  gunRecoilX: -6
+  gunRecoilY: 4
+  gunRecoilZ: 5
+  returnSpeed: 5
+  pitchRandomization: 0.05
+  gunShotSound: {fileID: 8300000, guid: 3665b7e99794e5d4daf34a50ac5809a9, type: 3}
+  abilitySound: {fileID: 8300000, guid: d26c8bcb95b7a204e81043b4256a3811, type: 3}
+  prefab: {fileID: 2372361606565583345, guid: 44288998fcb065d4d8f7911c4a82d8e4, type: 3}
+  muzzleFlash: {fileID: 6531112738638230798, guid: 0ef2075318a4b6248aab9f73395149a0, type: 3}
+  bulletTrail: {fileID: 2203822036197215550, guid: 1c542cc6bcc84e64cb7872e163679f1c, type: 3}
