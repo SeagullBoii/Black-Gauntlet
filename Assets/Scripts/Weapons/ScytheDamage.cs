@@ -29,17 +29,17 @@ public class ScytheDamage : MonoBehaviour
     [HideInInspector]
     public bool resettingCharge;
 
-    BoxCollider collider;
+    BoxCollider hitBox;
     ArrayList hitObjects = new ArrayList();
 
     private void Start()
     {
-        collider = GetComponent<BoxCollider>();
+        hitBox = GetComponent<BoxCollider>();
     }
 
     private void Update()
     {
-        if (!collider.enabled)
+        if (!hitBox.enabled)
             hitObjects.Clear();
 
         if (resettingCharge && !scytheScript.isSwinging) resettingCharge = false;
@@ -48,8 +48,6 @@ public class ScytheDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-
         if (other.gameObject.TryGetComponent<HurtBox>(out HurtBox hurtBox) && !hitObjects.Contains(hurtBox.health.gameObject))
         {
             //Damage

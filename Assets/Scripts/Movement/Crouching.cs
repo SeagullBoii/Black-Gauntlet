@@ -25,7 +25,7 @@ public class Crouching : MonoBehaviour
     //References
     Rigidbody rb;
     PlayerMovement pm;
-    CapsuleCollider collider;
+    CapsuleCollider playerCollider;
     PlayerInput playerInput;
 
     private void Awake()
@@ -47,11 +47,11 @@ public class Crouching : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovement>();
-        collider = GetComponent<CapsuleCollider>();
+        playerCollider = GetComponent<CapsuleCollider>();
 
-        collider.material.staticFriction = 0f;
-        collider.material.dynamicFriction = 0f;
-        startYScale = collider.height;
+        playerCollider.material.staticFriction = 0f;
+        playerCollider.material.dynamicFriction = 0f;
+        startYScale = playerCollider.height;
     }
 
     Vector2 movementInput;
@@ -85,7 +85,7 @@ public class Crouching : MonoBehaviour
             rb.AddForce(Vector3.down * 200f, ForceMode.Force);
         pm.crouching = true;
         playerObj.localScale = new Vector3(playerObj.localScale.x, crouchYScale / 2, playerObj.localScale.z);
-        collider.height = crouchYScale;
+        playerCollider.height = crouchYScale;
     }
 
     private void CrouchMovement()
@@ -109,6 +109,6 @@ public class Crouching : MonoBehaviour
     {
         pm.crouching = false;
         playerObj.localScale = new Vector3(playerObj.localScale.x, startYScale / 2, playerObj.localScale.z);
-        collider.height = startYScale;
+        playerCollider.height = startYScale;
     }
 }

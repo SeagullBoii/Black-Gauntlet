@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937e8e4692110cf45994a43a205731d5, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
-  name: Rifle
+  weaponName: Gun
   damage: 1
   criticalMultiplier: 10
   fireRate: 0

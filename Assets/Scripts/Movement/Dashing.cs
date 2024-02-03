@@ -17,7 +17,7 @@ public class Dashing : MonoBehaviour
 
     [Header("References")]
     public Transform orientation;
-    public GameObject camera;
+    public GameObject cam;
 
 
     //Dashing
@@ -76,11 +76,11 @@ public class Dashing : MonoBehaviour
         baseFOV = PlayerPrefs.GetFloat("FOV");
 
         if (weaponAbilities != null && !weaponAbilities.aiming)
-            camera.GetComponent<PlayerCameraMovement>().DoFOV(baseFOV + 5f);
+            cam.GetComponent<PlayerCameraMovement>().DoFOV(baseFOV + 5f);
 
         Transform forward;
 
-        if (dashForward) forward = camera.transform;
+        if (dashForward) forward = cam.transform;
         else forward = orientation;
 
         Vector3 forceToApply = GetDirection(forward) * (pm.movementSpeed + dashForce - pm.walkSpeed);
@@ -106,7 +106,7 @@ public class Dashing : MonoBehaviour
     {
         if (dashForward) pm.desiredMovementSpeed = pm.walkSpeed;
         if (weaponAbilities != null && !weaponAbilities.aiming)
-            camera.GetComponent<PlayerCameraMovement>().DoFOV(baseFOV);
+            cam.GetComponent<PlayerCameraMovement>().DoFOV(baseFOV);
         pm.dashing = false;
     }
 

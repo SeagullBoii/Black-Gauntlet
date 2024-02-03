@@ -94,7 +94,7 @@ public class VideoSettings : MonoBehaviour
 
     public void SetFPS(float targetFps)
     {
-        float fps = targetFps > 300 ? -1 : targetFps * 10;
+        float fps = targetFps > 30 ? -1 : targetFps * 10;
         PlayerPrefs.SetFloat("FPS", targetFps);
         Application.targetFrameRate = (int)fps;
     }

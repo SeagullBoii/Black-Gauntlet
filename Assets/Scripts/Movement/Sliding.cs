@@ -29,7 +29,7 @@ public class Sliding : MonoBehaviour
     Rigidbody rb;
     PlayerMovement pm;
     Crouching crouch;
-    CapsuleCollider collider;
+    CapsuleCollider playerCollider;
 
     PlayerInput playerInput;
 
@@ -53,11 +53,11 @@ public class Sliding : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovement>();
         crouch = GetComponent<Crouching>();
-        collider = GetComponent<CapsuleCollider>();
+        playerCollider = GetComponent<CapsuleCollider>();
 
-        collider.material.staticFriction = 0f;
-        collider.material.dynamicFriction = 0f;
-        startYScale = collider.height;
+        playerCollider.material.staticFriction = 0f;
+        playerCollider.material.dynamicFriction = 0f;
+        startYScale = playerCollider.height;
     }
 
     Vector2 movementInput;
@@ -90,7 +90,7 @@ public class Sliding : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y / 1.25f, rb.velocity.z);
         pm.sliding = true;
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale / 2, playerObj.localScale.z);
-        collider.height = slideYScale;
+        playerCollider.height = slideYScale;
         slideTime = slideDuration;
     }
 
@@ -128,6 +128,6 @@ public class Sliding : MonoBehaviour
     {
         pm.sliding = false;
         playerObj.localScale = new Vector3(playerObj.localScale.x, startYScale / 2, playerObj.localScale.z);
-        collider.height = startYScale;
+        playerCollider.height = startYScale;
     }
 }

@@ -216,7 +216,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 8
+  m_Speed: 0
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 5000
@@ -226,7 +226,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 4
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 2
 --- !u!54 &6477529525482225090
 Rigidbody:
@@ -290,12 +290,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0c2372bd6c9ab4a956db5b274643be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkPointRange: 15
+  noAI: 0
+  walkPointRange: 40
   timeBetweenPatrols: 1
-  patrolSpeed: 6
-  timeBetweenAttacks: 1
-  chaseSpeed: 18
-  sightRange: 35
+  patrolSpeed: 10
+  timeBetweenAttacks: 0
+  chaseSpeed: 18.5
+  sightRange: 120
   attackRange: 1.5
   ground:
     serializedVersion: 2

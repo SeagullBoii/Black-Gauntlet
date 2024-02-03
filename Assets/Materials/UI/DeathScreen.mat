@@ -47,7 +47,7 @@ Material:
     - _Opacity: 1
     - _Range: 0
     - _Speed: 1
-    - _UnscaledTime: 76.035706
+    - _UnscaledTime: 61.121338
     m_Colors:
     - _Color: {r: 0.4056604, g: 0.39991993, b: 0.39991993, a: 0}
   m_BuildTextureStacks: []

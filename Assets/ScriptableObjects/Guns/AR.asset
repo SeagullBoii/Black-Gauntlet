@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937e8e4692110cf45994a43a205731d5, type: 3}
   m_Name: AR
   m_EditorClassIdentifier: 
-  name: Assault Rifle
+  weaponName: Assault Rifle
   damage: 2.5
   criticalMultiplier: 2
   fireRate: 0.15
@@ -23,7 +23,7 @@ MonoBehaviour:
   recoilX: -5
   recoilY: 2.5
   recoilZ: 0.35
-  gunRecoilX: -6
+  gunRecoilX: -10
   gunRecoilY: 4
   gunRecoilZ: 5
   returnSpeed: 5

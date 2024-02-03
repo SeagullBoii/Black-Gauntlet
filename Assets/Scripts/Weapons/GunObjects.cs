@@ -46,32 +46,38 @@ public class GunObjects : MonoBehaviour
         }
     }
 
+    Color sliderEmission = new Color();
+    Color transparencyColor = new Color();
     private void SliderGlow()
     {
+        if (abilitySlider == null) return;
         //Emission
         float emissionScalingFactor = (sliderMaxEmission - minEmissionValue) / weapons.loadout[weapons.currentWeaponID].weaponModCooldown;
         float emissionYIntercept = minEmissionValue;
 
-        Color emission = sliderEmissionColor * Mathf.Pow(2, emissionScalingFactor * abilitySlider.value + emissionYIntercept);
-        abilitySlider.fillRect.GetComponent<Image>().material.SetColor("_GlowColor", emission);
+        sliderEmission = sliderEmissionColor * Mathf.Pow(2, emissionScalingFactor * abilitySlider.value + emissionYIntercept);
+        abilitySlider.fillRect.GetComponent<Image>().material.SetColor("_GlowColor", sliderEmission);
 
 
         //Lightness
         float lightnessScalingFactor = (maxTransparency - minTransparency) / weapons.loadout[weapons.currentWeaponID].weaponModCooldown;
         float lightnessYIntercept = minTransparency;
 
-        Color transparencyColor = abilitySlider.fillRect.GetComponent<Image>().material.GetColor("_Color");
+        transparencyColor = abilitySlider.fillRect.GetComponent<Image>().material.GetColor("_Color");
         transparencyColor.a = lightnessScalingFactor * abilitySlider.value + lightnessYIntercept;
 
         abilitySlider.fillRect.GetComponent<Image>().material.SetColor("_Color", transparencyColor);
     }
 
+    float emissionScalingFactor;
+    float emissionYIntercept;
     private void GunGlow()
     {
+        if (glowyParts == null) return;
         foreach (GameObject glowyPart in glowyParts)
         {
-            float emissionScalingFactor = (maxEmissionValue - minEmissionValue) / weapons.loadout[weapons.currentWeaponID].weaponModCooldown;
-            float emissionYIntercept = minEmissionValue;
+            emissionScalingFactor = (maxEmissionValue - minEmissionValue) / weapons.loadout[weapons.currentWeaponID].weaponModCooldown;
+            emissionYIntercept = minEmissionValue;
 
             Material material = glowyPart.GetComponent<MeshRenderer>().material;
             Color emission = emissionColor * Mathf.Pow(2, emissionScalingFactor * abilitySlider.value + emissionYIntercept);

@@ -43,6 +43,8 @@ public class Scythe : MonoBehaviour
     private void Awake()
     {
         playerInput = new PlayerInput();
+        startPosition = model.localPosition;
+        startRotation = model.localEulerAngles;
     }
 
     private void OnEnable()
@@ -53,12 +55,6 @@ public class Scythe : MonoBehaviour
     private void OnDisable()
     {
         playerInput.Disable();
-    }
-
-    private void Start()
-    {
-        startPosition = model.localPosition;
-        startRotation = model.localEulerAngles;
     }
 
     private void Update()

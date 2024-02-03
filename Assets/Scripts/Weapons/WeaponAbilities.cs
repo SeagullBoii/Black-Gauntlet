@@ -19,7 +19,7 @@ public class WeaponAbilities : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource sfx;
-    public AudioMixerGroup audio;
+    public AudioMixerGroup audioMixerGroup;
 
     [Header("References")]
     public PlayerCameraMovement playerCameraMovement;
@@ -142,7 +142,7 @@ public class WeaponAbilities : MonoBehaviour
 
         //FX
         float pitch = 1 + Random.Range(-gun.pitchRandomization, gun.pitchRandomization);
-        PlaySound(gun.abilitySound, pitch, 1.2f, audio);
+        PlaySound(gun.abilitySound, pitch, 1.2f, audioMixerGroup);
 
         weapons.recoilScript.RecoilFire(gun.recoilX * 2.5f, gun.recoilY * 2.5f, gun.recoilZ * 2.5f, weapons.recoilScript.returnSpeed);
         weapons.gunRecoilScript.RecoilFire(gun.gunRecoilX, gun.gunRecoilY * 2.5f, gun.gunRecoilZ * 2.5f, gun.returnSpeed);
@@ -157,7 +157,7 @@ public class WeaponAbilities : MonoBehaviour
 
         //Audio
         float pitch = 1 + Random.Range(-gun.pitchRandomization, gun.pitchRandomization);
-        PlaySound(gun.abilitySound, pitch, 1, audio);
+        PlaySound(gun.abilitySound, pitch, 1, audioMixerGroup);
 
         //Recoil
         weapons.recoilScript.RecoilFire(gun.recoilX * 2.5f, gun.recoilY * 5f, gun.recoilZ * 5f, gun.returnSpeed / 2);
