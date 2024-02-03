@@ -56,7 +56,7 @@ public class GunObjects : MonoBehaviour
         float emissionYIntercept = minEmissionValue;
 
         sliderEmission = sliderEmissionColor * Mathf.Pow(2, emissionScalingFactor * abilitySlider.value + emissionYIntercept);
-        abilitySlider.fillRect.GetComponent<Image>().material.SetColor("_GlowColor", sliderEmission);
+        abilitySlider?.fillRect.GetComponent<Image>().material.SetColor("_GlowColor", sliderEmission);
 
 
         //Lightness
@@ -66,7 +66,7 @@ public class GunObjects : MonoBehaviour
         transparencyColor = abilitySlider.fillRect.GetComponent<Image>().material.GetColor("_Color");
         transparencyColor.a = lightnessScalingFactor * abilitySlider.value + lightnessYIntercept;
 
-        abilitySlider.fillRect.GetComponent<Image>().material.SetColor("_Color", transparencyColor);
+        abilitySlider?.fillRect.GetComponent<Image>().material.SetColor("_Color", transparencyColor);
     }
 
     float emissionScalingFactor;

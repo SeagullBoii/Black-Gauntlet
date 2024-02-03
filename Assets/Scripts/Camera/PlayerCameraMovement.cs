@@ -16,6 +16,9 @@ public class PlayerCameraMovement : MonoBehaviour
     float xRotation;
     float yRotation;
 
+    Vector3 startPos;
+    Vector3 shake;
+
     Camera cam;
     PlayerInput playerInput;
 
@@ -41,7 +44,7 @@ public class PlayerCameraMovement : MonoBehaviour
 
         cam = GetComponent<Camera>();
         cam.fieldOfView = PlayerPrefs.GetFloat("FOV");
-
+        startPos = transform.localPosition;
     }
 
     private void Update()
@@ -58,8 +61,8 @@ public class PlayerCameraMovement : MonoBehaviour
             else
             {
                 // get mouse input
-                float mouseX = playerInput.Movement.Look.ReadValue<Vector2>().x * sensX * 0.02f;
-                float mouseY = playerInput.Movement.Look.ReadValue<Vector2>().y * sensY * 0.02f;
+                float mouseX = playerInput.Movement.Look.ReadValue<Vector2>().x * 0.02f * sensX;
+                float mouseY = playerInput.Movement.Look.ReadValue<Vector2>().y * 0.02f * sensY;
 
                 yRotation += mouseX;
 

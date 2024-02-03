@@ -195,9 +195,9 @@ public class WeaponAbilities : MonoBehaviour
             if (collisionObject.TryGetComponent<RevolverGrenade>(out RevolverGrenade grenade))
             {
                 if (!grenade.hasCollided)
-                    grenade.ExplodeRed();
+                    grenade.Explode(RevolverGrenade.ExplosionType.Red);
                 else
-                    grenade.Explode();
+                    grenade.Explode(RevolverGrenade.ExplosionType.Normal);
                 weapons.didHit = true;
                 weapons.hitTime = 0.15f;
             }

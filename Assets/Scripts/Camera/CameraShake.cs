@@ -6,10 +6,33 @@ using System;
 
 public class CameraShake : MonoBehaviour
 {
-    public void ShakeScreen(float duration, float positionStrength, float rotationStrength)
+    public static event Action<float, float, float, float, Transform, float> Shake;
+
+    public static void Invoke(float duration, float positionStrength, float rotationStrength, float vibrato, Transform originTransform, float maxDistance)
     {
+        Shake?.Invoke(duration, positionStrength, rotationStrength, vibrato, originTransform, maxDistance);
+    }
+
+    private void OnEnable() => Shake += ShakeScreen;
+    private void OnDisable() => Shake -= ShakeScreen;
+
+    public void ShakeScreen(float duration, float positionStrength, float rotationStrength, float vibrato, Transform originTransform, float maxDistance)
+    {
+        float distance = Mathf.Abs((transform.position - originTransform.position).magnitude);
+
+        int vibrationAmount = 15;
+        float shakeMultiplier = 0.1f;
+
+        if (distance <= maxDistance)
+        {
+            shakeMultiplier = 1;
+            vibrationAmount = (int) (vibrato * (maxDistance - distance) / maxDistance);
+        }
+        //int vibrationAmount = (int)(10 + vibrato / maxDistance * Math.Sqrt(1 - Math.Pow(distance, 2)));
+
+
         transform.DOComplete();
-        transform.DOShakePosition(duration, positionStrength);
-        transform.DOShakeRotation(duration, rotationStrength);
+        transform.DOShakePosition(duration, positionStrength * shakeMultiplier, vibrationAmount);
+        transform.DOShakeRotation(duration, rotationStrength * shakeMultiplier, vibrationAmount);
     }
 }

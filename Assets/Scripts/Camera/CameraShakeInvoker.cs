@@ -20,7 +20,7 @@ public class CameraShakeInvoker : MonoBehaviour
             float posIntensity = maxPositionIntensity / distance;
             float rotIntensity = maxRotationIntensity / distance;
 
-            if (cam.GetComponent<CameraShake>()) cam.GetComponent<CameraShake>().ShakeScreen(duration, posIntensity, rotIntensity);
+            //if (cam.GetComponent<CameraShake>()) cam.GetComponent<CameraShake>().ShakeScreen(duration, posIntensity, rotIntensity);
         }
 
     }
@@ -35,7 +35,7 @@ public class CameraShakeInvoker : MonoBehaviour
             float posIntensity = maxPositionIntensity / distance;
             float rotIntensity = maxRotationIntensity / distance;
 
-            if (cam.GetComponent<CameraShake>()) cam.GetComponent<CameraShake>().ShakeScreen(duration, posIntensity, rotIntensity);
+           // if (cam.GetComponent<CameraShake>()) cam.GetComponent<CameraShake>().ShakeScreen(duration, posIntensity, rotIntensity);
         }
     }
 

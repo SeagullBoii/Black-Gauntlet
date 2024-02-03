@@ -18,24 +18,48 @@ public class RevolverGrenade : MonoBehaviour
     public LayerMask ignore;
     public Scythe scythe;
 
+    public enum ExplosionType
+    {
+        Red, Normal
+    }
+
     [HideInInspector]
     public bool hasCollided;
 
-    public void Explode()
+    public void Explode(ExplosionType type)
     {
+
+        float forceMultiplier = 1.25f;
+        float radiusAddition = 0f;
+        float damageMultiplier = 1;
+        GameObject fx = explosionFX;
+        float maxShakeDistMultiplier = 1;
+        float shakeVibratoMultiplier = 1;
+        switch (type) {
+            case ExplosionType.Red: 
+                forceMultiplier = 1.25f; 
+                radiusAddition = 6f;
+                damageMultiplier = 1.5f;
+                fx = redExplosionFX;
+                maxShakeDistMultiplier = 1.5f;
+                shakeVibratoMultiplier = 1.5f;
+                break;
+        }
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         ArrayList hitObjects = new ArrayList();
         foreach (Collider nearbyObject in colliders)
         {
+            CameraShake.Invoke(0.5f, 1, 5, 200 * shakeVibratoMultiplier, transform, 50 * maxShakeDistMultiplier);
 
             if (nearbyObject.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
-                rb.AddExplosionForce(explosionForce, transform.position, radius);
+                rb.AddExplosionForce(explosionForce * forceMultiplier, transform.position, radius + radiusAddition);
             }
 
             if (nearbyObject.gameObject.TryGetComponent<Health>(out Health hp) && !hitObjects.Contains(nearbyObject.gameObject))
             {
-                hp.DealDamage(damage, true);
+                hp.DealDamage(damage * damageMultiplier, true);
                 hp.scythe = scythe;
                 SpawnDamagePopup(hp, nearbyObject.ClosestPoint(transform.position), nearbyObject.gameObject);
                 hitObjects.Add(nearbyObject.gameObject);
@@ -46,36 +70,13 @@ public class RevolverGrenade : MonoBehaviour
             hitObjects.Clear();
         }
 
-        GameObject explosion = Instantiate(explosionFX, transform.position, transform.rotation);
+        GameObject explosion = Instantiate(fx, transform.position, transform.rotation);
         Destroy(explosion, 3f);
         Destroy(transform.gameObject);
     }
 
-    public void ExplodeRed()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-        foreach (Collider nearbyObject in colliders)
-        {
-
-            if (nearbyObject.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb))
-            {
-                rb.AddExplosionForce(explosionForce * 1.25f, transform.position, radius + 6);
-            }
-            if (nearbyObject.gameObject.TryGetComponent<Health>(out Health hp))
-            {
-                hp.DealDamage(damage * 1.5f, true);
-                hp.scythe = scythe;
-                SpawnDamagePopup(hp, nearbyObject.ClosestPoint(transform.position), nearbyObject.gameObject);
-            }
-
-            if (nearbyObject.GetComponent<HitEffect>())
-                nearbyObject.GetComponent<HitEffect>().SpawnParticles(nearbyObject.gameObject, nearbyObject.ClosestPoint(transform.position), transform.position);
-
-        }
-
-        GameObject explosion = Instantiate(redExplosionFX, transform.position, transform.rotation);
-        Destroy(explosion, 3f);
-        Destroy(transform.gameObject);
+    private void BaseExplosion() {
+        Explode(ExplosionType.Normal);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -83,7 +84,7 @@ public class RevolverGrenade : MonoBehaviour
         if (collision.gameObject.layer != ignore)
         {
             hasCollided = true;
-            Invoke(nameof(Explode), time);
+            Invoke(nameof(BaseExplosion), time);
         }
 
     }
