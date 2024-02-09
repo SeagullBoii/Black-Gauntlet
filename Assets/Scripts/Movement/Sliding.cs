@@ -19,6 +19,7 @@ public class Sliding : MonoBehaviour
     public Transform orientation;
     public Transform playerObj;
     public WeaponCameraTiltAndFOV weaponCam;
+    public GameObject cam;
 
     //Sliding
     float startYScale;

@@ -91,67 +91,52 @@ public class Scythe : MonoBehaviour
         if (previousAnimation == randomInt)
         {
             if (randomInt == animationCount)
-            {
                 randomInt = Random.Range(1, animationCount + 1);
-            }
             else
-            {
                 randomInt += Random.Range(1, animationCount - randomInt + 1);
-            }
         }
 
         if (charge >= maxCharge)
         {
+            CameraShake.Invoke(0.25f, 1, 4f, 65, transform, 50);
             PlayAudio.PlaySound(audioSources[1], startingPitches[1], pitchRandoms[1]);
         }
         else
         {
+            CameraShake.Invoke(0.25f, 1, 3, 15, transform, 50);
             PlayAudio.PlaySound(audioSources[0], startingPitches[0], pitchRandoms[0]);
         }
-
         Animator animator = melee.GetComponent<Animator>();
 
-        if (randomInt == 1)
+        switch (randomInt)
         {
-            animator.Play("ScytheSwing");
-
-        }
-        else if (randomInt == 2)
-        {
-            animator.Play("ScytheSwing1");
-        }
-        else if (randomInt == 3)
-        {
-            animator.Play("ScytheSwing2");
-
-        }
-        else
-        {
-            animator.Play("ScytheSwing3");
-
+            case 1: animator.Play("ScytheSwing"); break;
+            case 2: animator.Play("ScytheSwing1"); break;
+            case 3: animator.Play("ScytheSwing2"); break;
+            default: animator.Play("ScytheSwing3"); break;
         }
 
-        //animator.SetTrigger("Swing");
+            //animator.SetTrigger("Swing");
 
-        //Reset
-        previousAnimation = randomInt;
+            //Reset
+            previousAnimation = randomInt;
 
-        Invoke(nameof(ResetGunPos), 0.3f);
-        Invoke(nameof(ResetSwing), 0.4f);
+            Invoke(nameof(ResetGunPos), 0.3f);
+            Invoke(nameof(ResetSwing), 0.4f);
+        }
+
+        private void ResetGunPos()
+        {
+            model.localPosition = startPosition;
+            model.localEulerAngles = startRotation;
+            isSwinging = false;
+        }
+
+        private void ResetSwing()
+        {
+            Animator animator = melee.GetComponent<Animator>();
+            // animator.Play("Idle");
+            canSwing = true;
+        }
+
     }
-
-    private void ResetGunPos()
-    {
-        model.localPosition = startPosition;
-        model.localEulerAngles = startRotation;
-        isSwinging = false;
-    }
-
-    private void ResetSwing()
-    {
-        Animator animator = melee.GetComponent<Animator>();
-        // animator.Play("Idle");
-        canSwing = true;
-    }
-
-}

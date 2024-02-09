@@ -20,12 +20,14 @@ MonoBehaviour:
   weaponModCooldown: 0
   knockbackForce: 1
   firingState: 0
-  recoilX: -20
+  recoilX: -35
   recoilY: 0
   recoilZ: 0
-  gunRecoilX: -11
+  gunRecoilX: -10
   gunRecoilY: 0
-  gunRecoilZ: 0
+  gunRecoilZ: 2
+  positionalRecoilZ: 0
+  shotRecoilRatio: 0.3
   returnSpeed: 15
   pitchRandomization: 0
   gunShotSound: {fileID: 8300000, guid: 7e60ec686497d6843b6515606fcbc65d, type: 3}

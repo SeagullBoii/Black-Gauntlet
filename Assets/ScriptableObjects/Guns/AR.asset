@@ -15,17 +15,19 @@ MonoBehaviour:
   weaponName: Assault Rifle
   damage: 2.5
   criticalMultiplier: 2
-  fireRate: 0.15
+  fireRate: 0.125
   bloom: 20
   weaponModCooldown: 5
   knockbackForce: 0.25
   firingState: 2
-  recoilX: -5
+  recoilX: -10
   recoilY: 2.5
   recoilZ: 0.35
   gunRecoilX: -10
   gunRecoilY: 4
   gunRecoilZ: 5
+  positionalRecoilZ: 0.2
+  shotRecoilRatio: 0.005
   returnSpeed: 5
   pitchRandomization: 0.05
   gunShotSound: {fileID: 8300000, guid: 3665b7e99794e5d4daf34a50ac5809a9, type: 3}

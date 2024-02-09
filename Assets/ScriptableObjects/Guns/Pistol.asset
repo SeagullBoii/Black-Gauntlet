@@ -20,16 +20,18 @@ MonoBehaviour:
   weaponModCooldown: 5
   knockbackForce: 0.75
   firingState: 0
-  recoilX: -6
+  recoilX: -5
   recoilY: 2
   recoilZ: 1
-  gunRecoilX: -70
+  gunRecoilX: -15
   gunRecoilY: 10
   gunRecoilZ: 5
-  returnSpeed: 15
+  positionalRecoilZ: 0.01
+  shotRecoilRatio: 1
+  returnSpeed: 5
   pitchRandomization: 0.05
   gunShotSound: {fileID: 8300000, guid: 1eb741202a5a60f419f3770705804d2e, type: 3}
   abilitySound: {fileID: 8300000, guid: dbc076ff7b9066f43bce9555901ac576, type: 3}
-  prefab: {fileID: 3662609783890033490, guid: 595efc05d03411a4ebb6f32547670e99, type: 3}
+  prefab: {fileID: 1110382022790375565, guid: 595efc05d03411a4ebb6f32547670e99, type: 3}
   muzzleFlash: {fileID: 6531112738638230798, guid: 0ef2075318a4b6248aab9f73395149a0, type: 3}
   bulletTrail: {fileID: 2203822036197215550, guid: 1c542cc6bcc84e64cb7872e163679f1c, type: 3}

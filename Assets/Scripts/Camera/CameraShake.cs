@@ -28,8 +28,6 @@ public class CameraShake : MonoBehaviour
             shakeMultiplier = 1;
             vibrationAmount = (int) (vibrato * (maxDistance - distance) / maxDistance);
         }
-        //int vibrationAmount = (int)(10 + vibrato / maxDistance * Math.Sqrt(1 - Math.Pow(distance, 2)));
-
 
         transform.DOComplete();
         transform.DOShakePosition(duration, positionStrength * shakeMultiplier, vibrationAmount);

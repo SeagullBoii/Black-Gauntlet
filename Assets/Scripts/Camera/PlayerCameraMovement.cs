@@ -13,6 +13,8 @@ public class PlayerCameraMovement : MonoBehaviour
 
     public Health health;
 
+    [HideInInspector] public ArrayList fovAdditives = new ArrayList();
+
     float xRotation;
     float yRotation;
 
@@ -73,6 +75,21 @@ public class PlayerCameraMovement : MonoBehaviour
                 camHolder.rotation = Quaternion.Euler(xRotation, yRotation, 0);
                 orientation.rotation = Quaternion.Euler(0, yRotation, 0);
             }
+        }
+    }
+
+    public void AddToFOV()
+    {
+        if (fovAdditives.Count == 0)
+        {
+            GetComponent<Camera>().DOFieldOfView(PlayerPrefs.GetFloat("FOV"), 0.25f);
+        }
+        else
+        {
+            float sum = 0;
+            foreach (float num in fovAdditives)
+                sum += num;
+            GetComponent<Camera>().DOFieldOfView(PlayerPrefs.GetFloat("FOV") + sum, 0.25f);
         }
     }
 

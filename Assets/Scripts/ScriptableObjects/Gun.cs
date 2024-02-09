@@ -24,6 +24,9 @@ public class Gun : ScriptableObject
     public float gunRecoilY;
     public float gunRecoilZ;
 
+    public float positionalRecoilZ;
+    public float shotRecoilRatio;
+
     public float returnSpeed;
 
     [Header("Effects")]

@@ -130,8 +130,7 @@ public class WeaponAbilities : MonoBehaviour
         //Spawning
         GameObject newGrenade = Instantiate(revolverGrenade, muzzleFlashTransform.position, weapons.weaponParent.rotation, weapons.weaponParent) as GameObject;
         Vector3 grenadePosition = muzzleFlashTransform.localPosition;
-        newGrenade.transform.localPosition = grenadePosition;
-        grenadePosition.y += 0.25f;
+        newGrenade.transform.position = Camera.main.transform.position;
         newGrenade.transform.localEulerAngles = muzzleFlashTransform.localEulerAngles;
         newGrenade.transform.localScale = new Vector3(.7f, .7f, .7f);
         newGrenade.transform.parent = null;
@@ -144,8 +143,9 @@ public class WeaponAbilities : MonoBehaviour
         float pitch = 1 + Random.Range(-gun.pitchRandomization, gun.pitchRandomization);
         PlaySound(gun.abilitySound, pitch, 1.2f, audioMixerGroup);
 
-        weapons.recoilScript.RecoilFire(gun.recoilX * 2.5f, gun.recoilY * 2.5f, gun.recoilZ * 2.5f, weapons.recoilScript.returnSpeed);
-        weapons.gunRecoilScript.RecoilFire(gun.gunRecoilX, gun.gunRecoilY * 2.5f, gun.gunRecoilZ * 2.5f, gun.returnSpeed);
+        weapons.recoilScript.RecoilFire(gun.recoilX * 2.5f, gun.recoilY * 2.5f, gun.recoilZ * 2.5f, weapons.recoilScript.returnSpeed, 0, gun.shotRecoilRatio);
+        weapons.gunRecoilScript.RecoilFire(gun.gunRecoilX, gun.gunRecoilY * 2.5f, gun.gunRecoilZ * 2.5f, gun.returnSpeed, gun.positionalRecoilZ, gun.shotRecoilRatio);
+        CameraShake.Invoke(0.25f, 1, 1.25f, 15, transform, 1);
     }
 
     private void PowerShot()
@@ -160,8 +160,8 @@ public class WeaponAbilities : MonoBehaviour
         PlaySound(gun.abilitySound, pitch, 1, audioMixerGroup);
 
         //Recoil
-        weapons.recoilScript.RecoilFire(gun.recoilX * 2.5f, gun.recoilY * 5f, gun.recoilZ * 5f, gun.returnSpeed / 2);
-        weapons.gunRecoilScript.RecoilFire(gun.gunRecoilX * 2.5f, gun.gunRecoilY * 2.5f, gun.gunRecoilZ * 2.5f, gun.returnSpeed / 2);
+        weapons.recoilScript.RecoilFire(gun.recoilX * 1.25f, gun.recoilY * 5f, gun.recoilZ * 5f, gun.returnSpeed / 2, 0, 1);
+        weapons.gunRecoilScript.RecoilFire(gun.gunRecoilX, gun.gunRecoilY * 2.5f, gun.gunRecoilZ * 2.5f, gun.returnSpeed / 2, gun.positionalRecoilZ * 1.25f, 1);
 
         //Bloom
         Vector3 bloom = spawn.forward;

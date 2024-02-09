@@ -260,7 +260,6 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
             }
 
-            if (movementSpeed > 125) movementSpeed = 125;
         }
     }
 

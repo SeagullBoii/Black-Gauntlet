@@ -19,7 +19,6 @@ public class Dashing : MonoBehaviour
     public Transform orientation;
     public GameObject cam;
 
-
     //Dashing
     public float dashCdTimer { get; private set; }
     public Vector3 delayedForceToApply { get; private set; }
@@ -71,13 +70,17 @@ public class Dashing : MonoBehaviour
         }
     }
 
+    int fovPosInArrL = 0;
     private void Dash()
     {
         baseFOV = PlayerPrefs.GetFloat("FOV");
 
         if (weaponAbilities != null && !weaponAbilities.aiming)
-            cam.GetComponent<PlayerCameraMovement>().DoFOV(baseFOV + 5f);
-
+        {
+            cam.GetComponent<PlayerCameraMovement>().fovAdditives.Add(15f);
+            fovPosInArrL = cam.GetComponent<PlayerCameraMovement>().fovAdditives.Count - 1;
+            cam.GetComponent<PlayerCameraMovement>().AddToFOV();
+        }
         Transform forward;
 
         if (dashForward) forward = cam.transform;
@@ -105,8 +108,10 @@ public class Dashing : MonoBehaviour
     private void ResetDash()
     {
         if (dashForward) pm.desiredMovementSpeed = pm.walkSpeed;
-        if (weaponAbilities != null && !weaponAbilities.aiming)
-            cam.GetComponent<PlayerCameraMovement>().DoFOV(baseFOV);
+
+        cam.GetComponent<PlayerCameraMovement>().fovAdditives.RemoveAt(fovPosInArrL);
+        cam.GetComponent<PlayerCameraMovement>().AddToFOV();
+
         pm.dashing = false;
     }
 

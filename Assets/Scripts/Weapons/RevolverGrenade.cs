@@ -35,6 +35,7 @@ public class RevolverGrenade : MonoBehaviour
         GameObject fx = explosionFX;
         float maxShakeDistMultiplier = 1;
         float shakeVibratoMultiplier = 1;
+
         switch (type) {
             case ExplosionType.Red: 
                 forceMultiplier = 1.25f; 

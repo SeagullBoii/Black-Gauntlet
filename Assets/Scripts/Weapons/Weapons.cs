@@ -336,8 +336,8 @@ public class Weapons : MonoBehaviour
         PlaySound(gun.gunShotSound, pitch, 1, audioGroup);
 
         //Recoil
-        recoilScript.RecoilFire(gun.recoilX, gun.recoilY, gun.recoilZ, gun.returnSpeed);
-        gunRecoilScript.RecoilFire(gun.gunRecoilX, gun.gunRecoilY, gun.gunRecoilZ, gun.returnSpeed);
+        recoilScript.RecoilFire(gun.recoilX, gun.recoilY, gun.recoilZ, gun.returnSpeed, 0, gun.shotRecoilRatio);
+        gunRecoilScript.RecoilFire(gun.gunRecoilX, gun.gunRecoilY, gun.gunRecoilZ, gun.returnSpeed, 0, gun.shotRecoilRatio);
 
         //Crosshair
         if (crosshair.GetComponent<DynamicCrosshair>())
