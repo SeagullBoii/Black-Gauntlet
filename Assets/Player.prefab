@@ -290,9 +290,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 15
   crouchSpeed: 7
-  slideSpeed: 50
-  dashSpeed: 28
-  wallrunSpeed: 18
+  slideSpeed: 80
+  dashSpeed: 32
+  wallrunSpeed: 22
   crouching: 0
   sliding: 0
   dashing: 0
@@ -452,6 +452,7 @@ MonoBehaviour:
   currentWeaponID: 0
   currentWeapon: {fileID: 0}
   shotCooldown: 0
+  unlockedWeapons: 
 --- !u!114 &698034133520551825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5245,7 +5246,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -5282,6 +5283,8 @@ MonoBehaviour:
   orientation: {fileID: 3719994734327672681}
   camHolder: {fileID: 8245110197679212002}
   health: {fileID: 3972584237693952690}
+  pm: {fileID: 2363675014850300134}
+  fovAdditives: []
 --- !u!135 &6825207288741252401
 SphereCollider:
   m_ObjectHideFlags: 0

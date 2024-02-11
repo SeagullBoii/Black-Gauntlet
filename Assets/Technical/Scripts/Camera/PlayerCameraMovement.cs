@@ -12,6 +12,7 @@ public class PlayerCameraMovement : MonoBehaviour
     public Transform camHolder;
 
     public Health health;
+    public PlayerMovement pm;
 
     [HideInInspector] public List<float> fovAdditives = new List<float>();
 
@@ -71,6 +72,7 @@ public class PlayerCameraMovement : MonoBehaviour
                 xRotation -= mouseY;
                 xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
+
                 // rotate cam and orientation
                 camHolder.rotation = Quaternion.Euler(xRotation, yRotation, 0);
                 orientation.rotation = Quaternion.Euler(0, yRotation, 0);
@@ -88,7 +90,7 @@ public class PlayerCameraMovement : MonoBehaviour
         {
             float sum = 0;
 
-            for (int i = 0; i < fovAdditives.Count; i++) sum += (float) fovAdditives[i];
+            for (int i = 0; i < fovAdditives.Count; i++) sum += (float)fovAdditives[i];
             GetComponent<Camera>().DOFieldOfView(PlayerPrefs.GetFloat("FOV") + sum, 0.25f);
         }
     }
