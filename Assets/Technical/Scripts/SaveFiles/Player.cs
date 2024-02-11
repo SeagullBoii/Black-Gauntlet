@@ -8,11 +8,11 @@ public class Player : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData gameData)
     {
-        this.unlockedWeapons = gameData.unlockedWeapons;
+        //this.unlockedWeapons = gameData.unlockedWeapons;
     }
 
     public void SaveData(GameData gameData)
     {
-        gameData.unlockedWeapons = this.unlockedWeapons;
+        //gameData.unlockedWeapons = this.unlockedWeapons;
     }
 }

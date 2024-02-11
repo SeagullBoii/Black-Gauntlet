@@ -13,7 +13,7 @@ public class PlayerCameraMovement : MonoBehaviour
 
     public Health health;
 
-    [HideInInspector] public ArrayList fovAdditives = new ArrayList();
+    [HideInInspector] public List<float> fovAdditives = new List<float>();
 
     float xRotation;
     float yRotation;
@@ -87,8 +87,8 @@ public class PlayerCameraMovement : MonoBehaviour
         else
         {
             float sum = 0;
-            foreach (float num in fovAdditives)
-                sum += num;
+
+            for (int i = 0; i < fovAdditives.Count; i++) sum += (float) fovAdditives[i];
             GetComponent<Camera>().DOFieldOfView(PlayerPrefs.GetFloat("FOV") + sum, 0.25f);
         }
     }

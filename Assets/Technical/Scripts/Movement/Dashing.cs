@@ -109,9 +109,11 @@ public class Dashing : MonoBehaviour
     {
         if (dashForward) pm.desiredMovementSpeed = pm.walkSpeed;
 
-        cam.GetComponent<PlayerCameraMovement>().fovAdditives.RemoveAt(fovPosInArrL);
-        cam.GetComponent<PlayerCameraMovement>().AddToFOV();
-
+        if (!weaponAbilities.aiming)
+        {
+            cam.GetComponent<PlayerCameraMovement>().fovAdditives.RemoveAt(fovPosInArrL);
+            cam.GetComponent<PlayerCameraMovement>().AddToFOV();
+        }
         pm.dashing = false;
     }
 

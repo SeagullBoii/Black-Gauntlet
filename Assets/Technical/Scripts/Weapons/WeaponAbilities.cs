@@ -59,6 +59,7 @@ public class WeaponAbilities : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
     }
 
+    int fovPosInArrL = -1;
     private void Update()
     {
         TryGetComponent<Scythe>(out Scythe scythe);
@@ -77,8 +78,6 @@ public class WeaponAbilities : MonoBehaviour
             else
             {
                 weapons.currentWeapon.transform.localPosition = Vector3.Lerp(weapons.currentWeapon.transform.localPosition, Vector3.zero, 10 * Time.deltaTime);
-                if (!pm.dashing)
-                    playerCameraMovement.DoFOV(PlayerPrefs.GetFloat("FOV"));
             }
 
             if (playerInput.Combat.WeaponAbility.ReadValue<float>() != 1 || (scythe != null && scythe.isSwinging)) aiming = false;
@@ -91,6 +90,12 @@ public class WeaponAbilities : MonoBehaviour
                 else if (scythe == null)
                     WeaponAbility();
             }
+            else if (playerInput.Combat.WeaponAbility.WasReleasedThisFrame() && weapons.currentWeapon != null && fovPosInArrL != -1)
+            {
+                ResetAimFOV();
+            }
+
+
 
             if (aiming && playerInput.Combat.Fire.triggered)
                 PowerShot();
@@ -115,10 +120,15 @@ public class WeaponAbilities : MonoBehaviour
         {
             aiming = true;
 
-            if (PlayerPrefs.GetFloat("FOV") - 60 > 0.00001f)
-                playerCameraMovement.DoFOV(PlayerPrefs.GetFloat("FOV") - 60);
+            if (playerCameraMovement.GetComponent<Camera>().fieldOfView - 60 > 0.00001f)
+            {
+                playerCameraMovement.fovAdditives.Add(-60.0f);
+                fovPosInArrL = playerCameraMovement.fovAdditives.Count - 1;
+                print("Fuck");
+            }
             else
-                playerCameraMovement.DoFOV(5);
+                playerCameraMovement.fovAdditives.Add(5.0f - playerCameraMovement.GetComponent<Camera>().fieldOfView);
+            playerCameraMovement.AddToFOV();
         }
     }
 
@@ -263,5 +273,12 @@ public class WeaponAbilities : MonoBehaviour
         sfx.volume = volume;
         sfx.outputAudioMixerGroup = mixerGroup;
         sfx.PlayOneShot(clip);
+    }
+
+    private void ResetAimFOV()
+    {
+        cam.GetComponent<PlayerCameraMovement>().fovAdditives.RemoveAt(fovPosInArrL);
+        cam.GetComponent<PlayerCameraMovement>().AddToFOV();
+        fovPosInArrL = -1;
     }
 }

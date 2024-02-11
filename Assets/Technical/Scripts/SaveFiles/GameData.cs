@@ -5,10 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    public bool[] unlockedWeapons;
+    public bool[] weapons;
+    public bool[] weaponAbilities;
 
     public GameData()
     {
-        unlockedWeapons = new bool[] {true, false, false};
+        weapons = new bool[] { true, false, false };
+        weaponAbilities = new bool[] { false, false, false };
     }
 }

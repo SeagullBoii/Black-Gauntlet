@@ -8,7 +8,7 @@ using UnityEngine.ProBuilder;
 using UnityEngine.Rendering;
 
 [RequireComponent(typeof(WeaponAbilities))]
-public class Weapons : MonoBehaviour
+public class Weapons : MonoBehaviour, IDataPersistence
 {
     [Header("Guns")]
     public GameObject weapons;
@@ -54,6 +54,17 @@ public class Weapons : MonoBehaviour
     WeaponAbilities weaponAbilities;
 
     PlayerInput playerInput;
+
+    public bool[] unlockedWeapons;
+
+    public void SaveData(GameData gameData)
+    {
+        gameData.weapons = unlockedWeapons;
+    }
+
+    public void LoadData(GameData gameData) {
+        unlockedWeapons = gameData.weapons;
+    }
 
     private void Awake()
     {
