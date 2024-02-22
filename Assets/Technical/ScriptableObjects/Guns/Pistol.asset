@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Pistol
   damage: 3
   criticalMultiplier: 2
-  fireRate: 0.2
+  fireRate: 0.25
   bloom: 1
   weaponModCooldown: 5
   knockbackForce: 0.75

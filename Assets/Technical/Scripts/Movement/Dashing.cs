@@ -113,6 +113,7 @@ public class Dashing : MonoBehaviour
         {
             cam.GetComponent<PlayerCameraMovement>().fovAdditives.RemoveAt(fovPosInArrL);
             cam.GetComponent<PlayerCameraMovement>().AddToFOV();
+            fovPosInArrL = -1;
         }
         pm.dashing = false;
     }

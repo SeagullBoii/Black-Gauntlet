@@ -1,13 +1,16 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Weapons))]
-public class WeaponAbilities : MonoBehaviour
+public class WeaponAbilities : MonoBehaviour, IDataPersistence
 {
-    [Header("Conditions")]
-    public bool hasFirstWeaponMod;
-    public bool hasThirdWeaponMod;
+    //[Header("Conditions")]
+    //public bool hasFirstWeaponMod;
+    //public bool hasThirdWeaponMod;
 
     [Header("Pistol")]
     public GameObject revolverGrenade;
@@ -23,8 +26,6 @@ public class WeaponAbilities : MonoBehaviour
 
     [Header("References")]
     public PlayerCameraMovement playerCameraMovement;
-
-
     [HideInInspector] public bool aiming;
     [HideInInspector] public float firstWeaponModCooldown;
     [HideInInspector] public float thirdWeaponModCooldown;
@@ -37,6 +38,19 @@ public class WeaponAbilities : MonoBehaviour
     Weapons weapons;
     PlayerMovement pm;
     PlayerInput playerInput;
+
+    public bool[] unlockedWeaponAbilities;
+    GameData gameD = new GameData();
+
+    public void SaveData(GameData gameData)
+    {
+        gameData.weaponAbilities = unlockedWeaponAbilities;
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        unlockedWeaponAbilities = gameData.weaponAbilities;
+    }
 
     private void Awake()
     {
@@ -66,7 +80,6 @@ public class WeaponAbilities : MonoBehaviour
 
         if (Time.timeScale != 0)
         {
-
             //Handle Cooldowns
             if (firstWeaponModCooldown > 0) firstWeaponModCooldown -= Time.deltaTime;
             if (thirdWeaponModCooldown > 0) thirdWeaponModCooldown -= Time.deltaTime;
@@ -109,14 +122,13 @@ public class WeaponAbilities : MonoBehaviour
     private void WeaponAbility()
     {
         Gun gun = weapons.loadout[weapons.currentWeaponID];
-
-        if (weapons.currentWeaponID == 0 && firstWeaponModCooldown <= 0 && hasFirstWeaponMod)
+        if (weapons.currentWeaponID == 0 && firstWeaponModCooldown <= 0 && unlockedWeaponAbilities[0])
         {
             PistolGrenade();
             firstWeaponModCooldown = weapons.loadout[weapons.currentWeaponID].weaponModCooldown;
         }
 
-        else if (weapons.currentWeaponID == 2 && thirdWeaponModCooldown <= 0 && hasThirdWeaponMod)
+        else if (weapons.currentWeaponID == 2 && thirdWeaponModCooldown <= 0 && unlockedWeaponAbilities[2])
         {
             aiming = true;
 
@@ -124,7 +136,6 @@ public class WeaponAbilities : MonoBehaviour
             {
                 playerCameraMovement.fovAdditives.Add(-60.0f);
                 fovPosInArrL = playerCameraMovement.fovAdditives.Count - 1;
-                print("Fuck");
             }
             else
                 playerCameraMovement.fovAdditives.Add(5.0f - playerCameraMovement.GetComponent<Camera>().fieldOfView);
@@ -150,7 +161,7 @@ public class WeaponAbilities : MonoBehaviour
         newGrenade.GetComponent<Rigidbody>().velocity = cam.forward * 50;
 
         //FX
-        float pitch = 1 + Random.Range(-gun.pitchRandomization, gun.pitchRandomization);
+        float pitch = 1 + UnityEngine.Random.Range(-gun.pitchRandomization, gun.pitchRandomization);
         PlaySound(gun.abilitySound, pitch, 1.2f, audioMixerGroup);
 
         weapons.recoilScript.RecoilFire(gun.recoilX * 2.5f, gun.recoilY * 2.5f, gun.recoilZ * 2.5f, weapons.recoilScript.returnSpeed, 0, gun.shotRecoilRatio);
@@ -164,9 +175,9 @@ public class WeaponAbilities : MonoBehaviour
         Gun gun = weapons.loadout[weapons.currentWeaponID];
         if (currentWeapon.GetComponent<Animator>())
             currentWeapon.GetComponent<Animator>().Play("AbilityShoot", 0, 0);
-
+        ResetAimFOV();
         //Audio
-        float pitch = 1 + Random.Range(-gun.pitchRandomization, gun.pitchRandomization);
+        float pitch = 1 + UnityEngine.Random.Range(-gun.pitchRandomization, gun.pitchRandomization);
         PlaySound(gun.abilitySound, pitch, 1, audioMixerGroup);
 
         //Recoil
@@ -277,7 +288,8 @@ public class WeaponAbilities : MonoBehaviour
 
     private void ResetAimFOV()
     {
-        cam.GetComponent<PlayerCameraMovement>().fovAdditives.RemoveAt(fovPosInArrL);
+        if (cam.GetComponent<PlayerCameraMovement>().fovAdditives.Count > 0)
+            cam.GetComponent<PlayerCameraMovement>().fovAdditives.RemoveAt(fovPosInArrL);
         cam.GetComponent<PlayerCameraMovement>().AddToFOV();
         fovPosInArrL = -1;
     }

@@ -79,6 +79,7 @@ public class VideoSettings : MonoBehaviour
     {
         PlayerPrefs.SetFloat("FOV", fov);
         if (mainCam) Camera.main.fieldOfView = fov;
+        PlayerCameraMovement.InvokeChangedFov();
     }
 
     public void SetResolution(int index)

@@ -51,7 +51,7 @@ public class RevolverGrenade : MonoBehaviour
         ArrayList hitObjects = new ArrayList();
         foreach (Collider nearbyObject in colliders)
         {
-            CameraShake.Invoke(0.5f, 1, 5, 200 * shakeVibratoMultiplier, transform, 50 * maxShakeDistMultiplier);
+            CameraShake.Invoke(0.5f, 1, 5, 200 * shakeVibratoMultiplier, transform, 100 * maxShakeDistMultiplier);
 
             if (nearbyObject.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb))
             {

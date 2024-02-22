@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class PlayerCameraMovement : MonoBehaviour
 {
@@ -25,6 +26,13 @@ public class PlayerCameraMovement : MonoBehaviour
     Camera cam;
     PlayerInput playerInput;
 
+    public static event Action FovChanged;
+    public static void InvokeChangedFov()
+    {
+        FovChanged?.Invoke();
+    }
+
+
     private void Awake()
     {
         playerInput = new PlayerInput();
@@ -32,11 +40,13 @@ public class PlayerCameraMovement : MonoBehaviour
 
     private void OnEnable()
     {
+        FovChanged += AddToFOV;
         playerInput.Enable();
     }
 
     private void OnDisable()
     {
+        FovChanged -= AddToFOV;
         playerInput.Disable();
     }
 
@@ -50,8 +60,15 @@ public class PlayerCameraMovement : MonoBehaviour
         startPos = transform.localPosition;
     }
 
+    float vel = 1;
     private void Update()
     {
+        if (Time.timeScale == 0) fovAdditives.Clear();
+        if (fovAdditives.Count == 0)
+            if (Mathf.Abs(cam.fieldOfView - PlayerPrefs.GetFloat("FOV")) <= 15)
+                cam.fieldOfView = Mathf.SmoothDamp(cam.fieldOfView, PlayerPrefs.GetFloat("FOV"), ref vel, 0.25f);
+            else
+                cam.fieldOfView = PlayerPrefs.GetFloat("FOV");
 
         if (Time.timeScale != 0)
         {

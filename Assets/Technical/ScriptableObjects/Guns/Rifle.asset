@@ -32,6 +32,6 @@ MonoBehaviour:
   pitchRandomization: 0
   gunShotSound: {fileID: 8300000, guid: 7e60ec686497d6843b6515606fcbc65d, type: 3}
   abilitySound: {fileID: 0}
-  prefab: {fileID: 1487774384131766, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}
+  prefab: {fileID: 2372361606565583345, guid: 44288998fcb065d4d8f7911c4a82d8e4, type: 3}
   muzzleFlash: {fileID: 6531112738638230798, guid: 0ef2075318a4b6248aab9f73395149a0, type: 3}
   bulletTrail: {fileID: 2203822036197215550, guid: 1c542cc6bcc84e64cb7872e163679f1c, type: 3}

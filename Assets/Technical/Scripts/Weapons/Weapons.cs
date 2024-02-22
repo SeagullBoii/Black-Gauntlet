@@ -56,6 +56,7 @@ public class Weapons : MonoBehaviour, IDataPersistence
     PlayerInput playerInput;
 
     public bool[] unlockedWeapons;
+    GameData gameD = new GameData();
 
     public void SaveData(GameData gameData)
     {
@@ -89,6 +90,7 @@ public class Weapons : MonoBehaviour, IDataPersistence
         pm = GetComponent<PlayerMovement>();
         weaponAbilities = GetComponent<WeaponAbilities>();
         Equip(0);
+        foreach (bool fuckYou in unlockedWeapons) Debug.Log(fuckYou);
     }
 
     private void Update()
@@ -121,19 +123,19 @@ public class Weapons : MonoBehaviour, IDataPersistence
     {
 
         //Equipping
-        if (playerInput.Combat.FirstWeapon.triggered) Equip(0);
-        if (playerInput.Combat.SecondWeapon.triggered) Equip(1);
-        if (playerInput.Combat.ThirdWeapon.triggered) Equip(2);
+        if (playerInput.Combat.FirstWeapon.triggered && unlockedWeapons[0]) Equip(0);
+        if (playerInput.Combat.SecondWeapon.triggered && unlockedWeapons[1]) Equip(1);
+        if (playerInput.Combat.ThirdWeapon.triggered && unlockedWeapons[2]) Equip(2);
 
         if (playerInput.UI.ScrollWheel.ReadValue<Vector2>().y > 0.5f || playerInput.Combat.ChangeWeaponsUp.ReadValue<float>() > 0.5f)
         {
-            if (currentWeaponID == 0) Equip(loadout.Length - 1);
-            else Equip(currentWeaponID - 1);
+            if (currentWeaponID == 0 && unlockedWeapons[loadout.Length-1]) Equip(loadout.Length - 1);
+            else if (unlockedWeapons[currentWeaponID-1]) Equip(currentWeaponID - 1);
         }
         else if (playerInput.UI.ScrollWheel.ReadValue<Vector2>().y < -0.5f || playerInput.Combat.ChangeWeaponsDown.ReadValue<float>() > 0.5f)
         {
-            if (currentWeaponID == loadout.Length - 1) Equip(0);
-            else Equip(currentWeaponID + 1);
+            if (currentWeaponID == loadout.Length - 1 && unlockedWeapons[0]) Equip(0);
+            else if(unlockedWeapons[currentWeaponID + 1]) Equip(currentWeaponID + 1);
         }
 
         //Shooting

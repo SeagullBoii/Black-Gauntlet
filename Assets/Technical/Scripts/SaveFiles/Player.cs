@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDataPersistence
 {
     public bool[] unlockedWeapons;
+    public bool[] unlockedWeaponAbilities;
 
     public void LoadData(GameData gameData)
     {
